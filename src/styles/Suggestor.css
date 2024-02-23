@@ -1,7 +1,41 @@
 .suggestor_container {
   max-width: 40rem;
-  margin: 2rem auto;
+  margin: 0 auto;
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.suggestor_name {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 0.8rem;
+  text-decoration: underline;
+}
+
+.suggestor_details p {
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+.suggestor_details p strong {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .suggestor_container {
+    max-width: calc(100% - 2rem);
+    margin: 1rem auto;
+    padding: 0.5rem;
+  }
+
+  .suggestor_name {
+    font-size: 2rem;
+  }
+
+  .suggestor_details p {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
 }

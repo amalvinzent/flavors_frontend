@@ -2205,11 +2205,13 @@ function Suggestor() {
                 options={options}
               />
             </Space>
+            <br />
+            <br />
             {data?.map((v, i) => {
               return (
-                <div key={i} className="suggestor_container">
-                  <h1>{v?.name || ''}</h1>
-                  <div>
+                <div key={i}>
+                  <h1 className="suggestor_name">{v?.name || ''}</h1>
+                  <div className="suggestor_details">
                     <p>
                       <strong>Ingredients:</strong> {v?.ingredients || ''}
                     </p>
