@@ -1,0 +1,31 @@
+.container {
+  width: 100vw;
+  height: calc(100vh - 5rem);
+  padding: 0rem 2rem;
+  margin: 0 auto;
+  background-color: #f8f5ee;
+  text-align: right;
+}
+
+.container .ant-input-search {
+  margin: 2rem 0rem;
+}
+
+.pagination_buttons {
+  padding: 1.5rem 0rem;
+}
+
+.pagination_buttons button {
+  margin-left: 1rem;
+}
+
+.center_spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.suggestor_btn {
+  padding-top: 2rem;
+}
