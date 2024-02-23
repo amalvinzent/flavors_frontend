@@ -4,7 +4,7 @@ import { Select, Space, Spin, message } from 'antd'
 import '../styles/Suggestor.css'
 const log = console.log
 
-let options = [
+const options = [
   {
     label: 'Maida flour',
     value: 'Maida flour',
@@ -2134,8 +2134,8 @@ let options = [
 
 function Suggestor() {
   const [data, setData] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [suggestor, setSuggestor] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [suggestor, setSuggestor] = useState([])
 
   const [messageApi, contextHolder] = message.useMessage()
   const error = (message) => {
@@ -2149,39 +2149,33 @@ function Suggestor() {
     })
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        let response = await fetch(
-          `http://localhost:3000/flavors/suggestor/new`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              ingredients: suggestor
-            })
-          }
-        )
-        response = await response?.json()
-        if (response?.statusCode == 200) {
-          setData(response?.data)
-        } else {
-          error('an error occured')
+  const handleChange = async (selected) => {
+    try {
+      setLoading(true)
+      setSuggestor(selected)
+      let response = await fetch(
+        `http://localhost:3000/flavors/suggestor/new`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            ingredients: selected
+          })
         }
-      } catch (error) {
+      )
+      response = await response?.json()
+      if (response?.statusCode == 200) {
+        setData(response?.data)
+      } else {
         error('an error occured')
-      } finally {
-        setLoading(false)
       }
+    } catch (error) {
+      error('an error occured')
+    } finally {
+      setLoading(false)
     }
-    fetchData()
-  }, [suggestor?.length])
-
-  const handleChange = (selected) => {
-    setSuggestor(selected)
   }
 
   return (
