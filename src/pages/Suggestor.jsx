@@ -2184,6 +2184,7 @@ function Suggestor() {
         <>
           {contextHolder}
           <Navbar />
+          <br />
           <div className="suggestor_container">
             <div>search</div>
             <br />
