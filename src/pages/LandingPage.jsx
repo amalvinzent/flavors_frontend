@@ -30,6 +30,9 @@ function LandingPage() {
   }
 
   useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller?.signal
+
     const fetchData = async () => {
       try {
         setLoading(true)
@@ -38,7 +41,8 @@ function LandingPage() {
             sort?.field
           }]=${sort?.order == 'ascend' ? 'asc' : 'desc'}&${
             filterr?.query || ''
-          }&search=${search}`
+          }&search=${search}`,
+          { signal: signal }
         )
         response = await response?.json()
         if (response?.statusCode == 200) {
@@ -53,6 +57,9 @@ function LandingPage() {
       }
     }
     fetchData()
+    return () => {
+      controller.abort()
+    }
   }, [pageNumber, sort?.order, filterr?.query, search])
 
   const onChange = (pagination, filter, sorter, extra) => {

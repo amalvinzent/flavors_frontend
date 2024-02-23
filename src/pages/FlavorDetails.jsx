@@ -23,10 +23,14 @@ function FlavorDetails() {
   }
 
   useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller?.signal
     const fetchData = async () => {
       try {
         setLoading(true)
-        let response = await fetch(`http://localhost:3000/flavors/${id}`)
+        let response = await fetch(`http://localhost:3000/flavors/${id}`, {
+          signal: signal
+        })
         response = await response?.json()
         if (response?.statusCode == 200) {
           setData(response?.data)
@@ -40,6 +44,9 @@ function FlavorDetails() {
       }
     }
     fetchData()
+    return () => {
+      controller.abort()
+    }
   }, [])
 
   return (

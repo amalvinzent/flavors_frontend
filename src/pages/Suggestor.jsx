@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Select, Space, Spin, message } from 'antd'
 import '../styles/Suggestor.css'
 const log = console.log
