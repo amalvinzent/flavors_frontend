@@ -2151,25 +2151,27 @@ function Suggestor() {
 
   const handleChange = async (selected) => {
     try {
-      setLoading(true)
       setSuggestor(selected)
-      let response = await fetch(
-        `http://localhost:3000/flavors/suggestor/new`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            ingredients: selected
-          })
+      if (selected?.length) {
+        setLoading(true)
+        let response = await fetch(
+          `http://localhost:3000/flavors/suggestor/new`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              ingredients: selected
+            })
+          }
+        )
+        response = await response?.json()
+        if (response?.statusCode == 200) {
+          setData(response?.data)
+        } else {
+          error('an error occured')
         }
-      )
-      response = await response?.json()
-      if (response?.statusCode == 200) {
-        setData(response?.data)
-      } else {
-        error('an error occured')
       }
     } catch (error) {
       error('an error occured')
