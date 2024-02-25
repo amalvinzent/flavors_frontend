@@ -249,9 +249,12 @@ function LandingPage() {
           </div>
         </>
       ) : (
-        <div className="center_spin">
-          <Spin size="large" />
-        </div>
+        <>
+          {contextHolder}
+          <div className="center_spin">
+            <Spin size="large" />
+          </div>
+        </>
       )}
     </>
   )
