@@ -39,9 +39,9 @@ function LandingPage() {
         let response = await fetch(
           `http://localhost:3000/flavors?page_number=${pageNumber}&page_size=${10}&sort[${
             sort?.field
-          }]=${sort?.order == 'ascend' ? 'asc' : 'desc'}&${
-            filterr?.query || ''
-          }&search=${search}`,
+          }]=${sort?.order == 'ascend' ? 'asc' : 'desc'}${
+            filterr?.query ? '&' + filterr?.query : ''
+          }${search ? '&search=' + search : ''}`,
           { signal: signal }
         )
         response = await response?.json()
@@ -69,34 +69,25 @@ function LandingPage() {
         order: sorter?.order || 'descend'
       })
     }
-
     if (extra?.action == 'filter') {
-      const query = Object.keys(filter || {})
-        ?.map((key) => {
-          if (Array.isArray(filter[key])) {
-            return filter[key]
-              ?.map((value) => `filter[${key}]=${encodeURIComponent(value)}`)
-              ?.join('&')
-          } else if (filter[key]) {
-            return `filter[${key}]=${encodeURIComponent(filter[key])}`
+      const query = Object.entries(filter || {})
+        ?.flatMap(([key, value]) => {
+          if (Array.isArray(value)) {
+            return value?.map((val) => `filter[${key}]=${val}`)
           }
         })
-        ?.join('&')
-
-      Object.keys(filter || {}).forEach((key) => {
-        if (filter[key]) {
-          setFilterr((prev) => ({
-            ...prev,
-            [key]: filter[key],
-            query: query
-          }))
-        }
-      })
+        .join('&')
+      setFilterr((prev) => ({
+        ...prev,
+        ...filter,
+        query: query
+      }))
     }
   }
 
   const onSearch = (value, _e, info) => {
     if (info?.source == 'input' && value) {
+      setPageNumber(1)
       setSearch(value)
     }
   }
