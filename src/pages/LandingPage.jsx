@@ -77,6 +77,7 @@ function LandingPage() {
           }
         })
         .join('&')
+      setPageNumber(1)
       setFilterr((prev) => ({
         ...prev,
         ...filter,
