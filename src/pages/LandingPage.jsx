@@ -231,7 +231,7 @@ function LandingPage() {
                   setPageNumber((prev) => prev + 1)
                 }}
                 disabled={
-                  Math.floor(Number(data?.pagination?.total || 0) / 10) <
+                  Math.floor(Number(data?.pagination?.total || 0) / 10) <=
                   pageNumber
                 }
               >
