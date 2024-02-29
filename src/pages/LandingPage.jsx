@@ -190,9 +190,7 @@ function LandingPage() {
           <div className="container">
             <div className="suggestor_btn">
               <Link to={'/suggestor'} style={{ cursor: 'pointer' }}>
-                <Button icon={<RiseOutlined />} onClick={() => {}}>
-                  suggestor
-                </Button>
+                <Button icon={<RiseOutlined />}>suggestor</Button>
               </Link>
             </div>
             <div>
